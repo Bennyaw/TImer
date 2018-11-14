@@ -1,0 +1,32 @@
+18:40:59 **** Incremental Build of configuration Debug for project Timer2 ****
+make all 
+Building file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+Invoking: MCU GCC Compiler
+C:\Students\Bennyaw\Timer\Timer2\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F429xx -I"C:/Students/Bennyaw/Timer/Timer2/Inc" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
+Finished building: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+ 
+Building file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+Invoking: MCU GCC Compiler
+C:\Students\Bennyaw\Timer\Timer2\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F429xx -I"C:/Students/Bennyaw/Timer/Timer2/Inc" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Students/Bennyaw/Timer/Timer2/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o" -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o" "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c"
+Finished building: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+ 
+Building target: Timer2.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F429ZITx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Timer2.elf" @"objects.list"   -lm
+Finished building target: Timer2.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "Timer2.elf" "Timer2.hex"
+arm-none-eabi-size "Timer2.elf"
+   text	   data	    bss	    dec	    hex	filename
+   6080	     20	   1636	   7736	   1e38	Timer2.elf
+ 
+18:41:15 **** Incremental Build of configuration Debug for project Timer2 ****
+make all 
+make: Nothing to be done for 'all'.
+18:42:20 **** Incremental Build of configuration Debug for project Timer2 ****
+make all 
+make: Nothing to be done for 'all'.
