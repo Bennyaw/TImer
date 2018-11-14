@@ -131,40 +131,18 @@ Timer_Handle_TypeDef tim2;
 #define timer13 ((TimerRegister *)0x40001C00)
 #define timer14 ((TimerRegister *)0x40002000)
 
-/*----------channel---------*/
-#define timerChannel_1                    	0x00000000
-#define timerChannel_2                      0x00000004
-#define timerChannel_3                      0x00000008
-#define timerChannel_4                      0x0000000C
-#define timerChannel_All                    0x00000018
-
-/*-------channelState-------*/
-#define timer_Ccx_ENABLE                   0x00000001U
-#define timer_Ccx_DISABLE                  0x00000000U
-#define timer_CcxN_ENABLE                  0x00000004U
-#define timer_CcxN_DISABLE                 0x00000000U
-
 void timer2Init(Timer_Handle_TypeDef *timer)
 {
 	timer->instance = timer2;
 }
 
-void ccxChannelConfigure(Timer_Handle_TypeDef *timer, uint32_t channel, uint32_t channelState)
-
-
-Status_TypeDef Timer_Base_Start(Timer_Handle_TypeDef *timer)
+Status_TypeDef TIM_Base_Start(Timer_Handle_TypeDef *timer)
 {
 	timer->state = TIM_STATE_BUSY;
 	timer->instance->Cr1 |= 0x0001;
 	timer->state = TIM_STATE_READY;
 
 	return Ok;
-}
-
-Status_TypeDef Timer_OC_Start(Timer_Handle_TypeDef *timer, uint32_t channel)
-{
-
-
 }
 
 /* USER CODE END 0 */
@@ -197,8 +175,8 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_TIM2_Init();
+  //MX_GPIO_Init();
+  //MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -206,7 +184,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   timer2Init(&tim2);
-  Timer_Base_Start(&tim2);
+  TIM_Base_Start(&tim2);
   //HAL_GPIO_WritePin(Led13_GPIO_Port,Led13_Pin,0);
   //HAL_GPIO_WritePin(Led14_GPIO_Port,Led14_Pin,0);
 
