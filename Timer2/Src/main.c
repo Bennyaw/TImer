@@ -63,6 +63,84 @@ static void MX_TIM2_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+typedef volatile uint32_t TimerRegister;
+
+typedef struct GeneralTimerRegs GeneralTimerRegs;//tim2 to tim5
+struct GeneralTimerRegs{
+	TimerRegister Cr1;				// control register 1
+	TimerRegister Cr2;				// control register 2
+	TimerRegister SlaveMode;		// slave mode control register
+	TimerRegister DMAInterruptEn;	// DMA/Interrupt enable register
+	TimerRegister Status;			// status register
+	TimerRegister EventGeneration;	// event generation register
+	TimerRegister Ccmr1;			// capture/compare mode register 1
+	TimerRegister Ccmr2;			// capture/compare mode register 2
+	TimerRegister Ccer;				// capture/compare enable register
+	TimerRegister Counter;			// counter
+	TimerRegister Prescaler;		// prescaler
+	TimerRegister Arr;				// auto-reload register
+	TimerRegister Ccr1;				// capture/compare register 1
+	TimerRegister Ccr2;				// capture/compare register 2
+	TimerRegister Ccr3;				// capture/compare register 3
+	TimerRegister Ccr4;				// capture/compare register 4
+	TimerRegister Dcr;				// DMA control register
+	TimerRegister Dmar;				// DMA address for full transfer
+	TimerRegister Or;				// option register
+};
+
+
+typedef enum
+{
+  TIM_STATE_RESET      ,       //= 0x00U,    /*!< Peripheral not yet initialized or disabled  */
+  TIM_STATE_READY      ,       //= 0x01U,    /*!< Peripheral Initialized and ready for use    */
+  TIM_STATE_BUSY       ,      //= 0x02U,    /*!< An internal process is ongoing              */
+  TIM_STATE_TIMEOUT    ,       //= 0x03U,    /*!< Timeout state                               */
+  TIM_STATE_ERROR      ,       //= 0x04U     /*!< Reception process is ongoing                */
+}TIM_State_TypeDef;
+
+
+typedef enum
+{
+  OK       = 0x00U,
+  ERROR    = 0x01U,
+  BUSY     = 0x02U,
+  TIMEOUT  = 0x03U
+}Status_TypeDef;
+
+
+typedef struct Timer_Handle_TypeDef Timer_Handle_TypeDef
+struct Timer_Handle_TypeDef{
+	GeneralTimerRegs *instance;
+	volatile TIM_State_TypeDef state;
+};
+
+
+#define timer1 timer ((TimerRegister *))0x4001 0000
+#define timer2 timer ((TimerRegister *))0x4000 0000
+#define timer3 timer ((TimerRegister *))0x4000 0400
+#define timer4 timer ((TimerRegister *))0x4000 0800
+#define timer5 timer ((TimerRegister *))0x4000 0C00
+#define timer6 timer ((TimerRegister *))0x4000 1000
+#define timer7 timer ((TimerRegister *))0x4000 1400
+#define timer8 timer ((TimerRegister *))0x4001 0400
+#define timer9 timer ((TimerRegister *))0x4001 4000
+#define timer10 timer ((TimerRegister *))0x4001 4400
+#define timer11 timer ((TimerRegister *))0x4001 4800
+#define timer12 timer ((TimerRegister *))0x4000 1800
+#define timer13 timer ((TimerRegister *))0x4000 1C00
+#define timer14 timer ((TimerRegister *))0x4000 2000
+
+Status_TypeDef TIM_Base_Start(Timer_Handle_TypeDef *timer)
+{
+	timer->state = TIM_STATE_BUSY;
+	timer->instance->Cr1 |= 0x0001;
+	timer->state = TIM_STATE_READY;
+
+	return OK;
+}
+
+
+
 
 /* USER CODE END 0 */
 

@@ -3395,7 +3395,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
     }
     else
     {
-      htim->State = HAL_TIM_STATE_BUSY;
+      htim->State = ;
     }
   }
   switch(BurstRequestSrc)
