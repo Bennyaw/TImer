@@ -1,0 +1,84 @@
+#ifndef __RCC_H__
+#define __RCC_H__
+
+#include <stdint.h>
+#include "Common.h"
+
+typedef struct RCCRegs RCCRegs;//RCC
+
+struct RCCRegs{
+	RCCRegister Cr;						// 0x00
+	RCCRegister Pllcfgr;				// 0x04
+	RCCRegister Cfgr;					// 0x08
+	RCCRegister Cir;					// 0x0C
+	RCCRegister Ahb1rstr;				// 0x10
+	RCCRegister Ahb2rstr;				// 0x14
+	RCCRegister Ahb3rstr;				// 0x18
+	RCCRegister Reserved0;				// 0x1C
+	RCCRegister Apb1rstr;				// 0x20
+	RCCRegister Apb2rstr;				// 0x24
+	RCCRegister Reserved1[2];			// 0x28
+	RCCRegister Ahb1enr;				// 0x30
+	RCCRegister Ahb2enr;				// 0x34
+	RCCRegister Ahb3enr;				// 0x38
+	RCCRegister Reserved2;				// 0x3C
+	RCCRegister Apb1enr;				// 0x40
+	RCCRegister Apb2enr;				// 0x44
+	RCCRegister Reserved3[2];			// 0x48
+	RCCRegister Ahb1lpenr;				// 0x50
+	RCCRegister Ahb2lpenr;				// 0x54
+	RCCRegister Ahb3lpenr;				// 0x58
+	RCCRegister Reserved4;				// 0x5C
+	RCCRegister Apb1lpenr;				// 0x60
+	RCCRegister Apb2lpenr;				// 0x64
+	RCCRegister Reserved5[2];			// 0x68
+	RCCRegister Bdcr;					// 0x70
+	RCCRegister Csr;					// 0x74
+	RCCRegister Reserved6[2];			// 0x78
+	RCCRegister Sscgr;					// 0x80
+	RCCRegister Plli2scfgr;				// 0x84
+};
+
+#define Rcc						((RCCRegs *)0x40023800)
+
+#define Enable_Timer2_CLK_GATING()		RCC->Apb1enr |= (1<<0)
+#define Enable_Timer3_CLK_GATING()		RCC->Apb1enr |= (1<<1)
+#define Enable_Timer4_CLK_GATING()		RCC->Apb1enr |= (1<<2)
+#define Enable_Timer5_CLK_GATING()		RCC->Apb1enr |= (1<<3)
+#define Enable_Timer6_CLK_GATING()		RCC->Apb1enr |= (1<<4)
+#define Enable_Timer7_CLK_GATING()		RCC->Apb1enr |= (1<<5)
+#define Enable_Timer12_CLK_GATING()		RCC->Apb1enr |= (1<<6)
+#define Enable_Timer13_CLK_GATING()		RCC->Apb1enr |= (1<<7)
+#define Enable_Timer14_CLK_GATING()		RCC->Apb1enr |= (1<<8)
+
+#define Disable_Timer2_CLK_GATING()		RCC->Apb1enr &= ~(1<<0)
+#define Disable_Timer3_CLK_GATING()		RCC->Apb1enr &= ~(1<<1)
+#define Disable_Timer4_CLK_GATING()		RCC->Apb1enr &= ~(1<<2)
+#define Disable_Timer5_CLK_GATING()		RCC->Apb1enr &= ~(1<<3)
+#define Disable_Timer6_CLK_GATING()		RCC->Apb1enr &= ~(1<<4)
+#define Disable_Timer7_CLK_GATING()		RCC->Apb1enr &= ~(1<<5)
+#define Disable_Timer12_CLK_GATING()	RCC->Apb1enr &= ~(1<<6)
+#define Disable_Timer13_CLK_GATING()	RCC->Apb1enr &= ~(1<<7)
+#define Disable_Timer14_CLK_GATING()	RCC->Apb1enr &= ~(1<<8)
+
+#define Unreset_Timer2()				RCC->Apb1rstr &= ~(1<<0)
+#define Unreset_Timer3()				RCC->Apb1rstr &= ~(1<<1)
+#define Unreset_Timer4()				RCC->Apb1rstr &= ~(1<<2)
+#define Unreset_Timer5()				RCC->Apb1rstr &= ~(1<<3)
+#define Unreset_Timer6()				RCC->Apb1rstr &= ~(1<<4)
+#define Unreset_Timer7()				RCC->Apb1rstr &= ~(1<<5)
+#define Unreset_Timer12()				RCC->Apb1rstr &= ~(1<<6)
+#define Unreset_Timer13()				RCC->Apb1rstr &= ~(1<<7)
+#define Unreset_Timer14()				RCC->Apb1rstr &= ~(1<<8)
+
+#define Reset_Timer2()					RCC->Apb1rstr |=(1<<0)
+#define Reset_Timer3()					RCC->Apb1rstr |=(1<<1)
+#define Reset_Timer4()					RCC->Apb1rstr |=(1<<2)
+#define Reset_Timer5()					RCC->Apb1rstr |=(1<<3)
+#define Reset_Timer6()					RCC->Apb1rstr |=(1<<4)
+#define Reset_Timer7()					RCC->Apb1rstr |=(1<<5)
+#define Reset_Timer12()					RCC->Apb1rstr |=(1<<6)
+#define Reset_Timer13()					RCC->Apb1rstr |=(1<<7)
+#define Reset_Timer14()					RCC->Apb1rstr |=(1<<8)
+
+#endif /* __RCC_H__ */

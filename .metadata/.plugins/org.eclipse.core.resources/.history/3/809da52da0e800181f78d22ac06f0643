@@ -1,0 +1,43 @@
+#ifndef __RCC_H__
+#define __RCC_H__
+
+#include <stdint.h>
+#include "Common.h"
+
+typedef struct RCCRegs RCCRegs;//RCC
+
+struct RCCRegs{
+	RCCRegister Cr;						// 0x00	control register 1
+	RCCRegister Pllcfgr;				// 0x04	control register 2
+	RCCRegister Cfgr;					// 0x08	slave mode control register
+	RCCRegister Cir;					// 0x0C	DMA/Interrupt enable register
+	RCCRegister Ahb1rstr;				// 0x10	status register
+	RCCRegister Ahb2rstr;				// 0x14	event generation register
+	RCCRegister Ahb3rstr;				// 0x18	capture/compare mode register 1
+	RCCRegister Reserved0;				// 0x1C	capture/compare mode register 2
+	RCCRegister Apb1rstr;				// 0x20	capture/compare enable register
+	RCCRegister Apb2rstr;				// 0x24	counter
+	RCCRegister Reserved1[2];			// 0x28	prescaler
+	RCCRegister Ahb1enr;				// 0x30	auto-reload register
+	RCCRegister Ahb2enr;				// 0x34
+	RCCRegister Ahb3enr;				// 0x38	capture/compare register 2
+	RCCRegister Reserved3;				// 0x3C	capture/compare register 3
+	RCCRegister Apb1enr;				// 0x40	capture/compare register 4
+	RCCRegister Apb2enr;				// 0x44	DMA control register
+	RCCRegister Reserved4[5];			// 0x48	DMA address for full transfer
+	RCCRegister Ahb1lpenr;				// 0x50	option register
+	RCCRegister Ahb2lpenr;				// 0x54
+	RCCRegister Ahb3lpenr;				// 0x58
+	RCCRegister Reserved6;				// 0x5C
+	RCCRegister Apb1lpenr;				// 0x60
+	RCCRegister Apb2lpenr;				// 0x64
+	RCCRegister Reserved7[8];			// 0x68
+	RCCRegister Bdcr;					// 0x70
+	RCCRegister Csr;					// 0x74
+	RCCRegister Reserved9[10];			// 0x78
+	RCCRegister Sscgr;					// 0x80
+	RCCRegister Plli2scfgr;				// 0x84
+
+};
+
+#endif /* __RCC_H__ */

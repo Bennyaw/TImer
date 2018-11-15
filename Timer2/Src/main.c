@@ -41,7 +41,8 @@
 #include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "Timer.h"
+#include "RCC.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -63,109 +64,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-typedef volatile uint32_t TimerRegister;
 
-typedef struct GeneralTimerRegs GeneralTimerRegs;//tim2 to tim5
-struct GeneralTimerRegs{
-	TimerRegister Cr1;				// control register 1
-	TimerRegister Cr2;				// control register 2
-	TimerRegister SlaveMode;		// slave mode control register
-	TimerRegister DMAInterruptEn;	// DMA/Interrupt enable register
-	TimerRegister Status;			// status register
-	TimerRegister EventGeneration;	// event generation register
-	TimerRegister Ccmr1;			// capture/compare mode register 1
-	TimerRegister Ccmr2;			// capture/compare mode register 2
-	TimerRegister Ccer;				// capture/compare enable register
-	TimerRegister Counter;			// counter
-	TimerRegister Prescaler;		// prescaler
-	TimerRegister Arr;				// auto-reload register
-	TimerRegister Ccr1;				// capture/compare register 1
-	TimerRegister Ccr2;				// capture/compare register 2
-	TimerRegister Ccr3;				// capture/compare register 3
-	TimerRegister Ccr4;				// capture/compare register 4
-	TimerRegister Dcr;				// DMA control register
-	TimerRegister Dmar;				// DMA address for full transfer
-	TimerRegister Or;				// option register
-};
-
-
-typedef enum
-{
-  TIM_STATE_RESET      ,       //= 0x00U,    /*!< Peripheral not yet initialized or disabled  */
-  TIM_STATE_READY      ,       //= 0x01U,    /*!< Peripheral Initialized and ready for use    */
-  TIM_STATE_BUSY       ,      //= 0x02U,    /*!< An internal process is ongoing              */
-  TIM_STATE_TIMEOUT    ,       //= 0x03U,    /*!< Timeout state                               */
-  TIM_STATE_ERROR      ,       //= 0x04U     /*!< Reception process is ongoing                */
-}TIM_State_TypeDef;
-
-
-typedef enum
-{
-  Ok       = 0x00U,
-  Error    = 0x01U,
-  Busy     = 0x02U,
-  Timeout  = 0x03U
-}Status_TypeDef;
-
-
-typedef struct Timer_Handle_TypeDef Timer_Handle_TypeDef;
-struct Timer_Handle_TypeDef{
-	GeneralTimerRegs *instance;
-	volatile TIM_State_TypeDef state;
-};
-
-Timer_Handle_TypeDef tim2;
-
-#define timer1 ((TimerRegister *)0x40010000)
-#define timer2 ((TimerRegister *)0x40000000)
-#define timer3 ((TimerRegister *)0x40000400)
-#define timer4 ((TimerRegister *)0x40000800)
-#define timer5 ((TimerRegister *)0x40000C00)
-#define timer6 ((TimerRegister *)0x40001000)
-#define timer7 ((TimerRegister *)0x40001400)
-#define timer8 ((TimerRegister *)0x40010400)
-#define timer9 ((TimerRegister *)0x40014000)
-#define timer10 ((TimerRegister *)0x40014400)
-#define timer11 ((TimerRegister *)0x40014800)
-#define timer12 ((TimerRegister *)0x40001800)
-#define timer13 ((TimerRegister *)0x40001C00)
-#define timer14 ((TimerRegister *)0x40002000)
-
-/*----------channel---------*/
-#define timerChannel_1                    	0x00000000
-#define timerChannel_2                      0x00000004
-#define timerChannel_3                      0x00000008
-#define timerChannel_4                      0x0000000C
-#define timerChannel_All                    0x00000018
-
-/*-------channelState-------*/
-#define timer_Ccx_ENABLE                   0x00000001U
-#define timer_Ccx_DISABLE                  0x00000000U
-#define timer_CcxN_ENABLE                  0x00000004U
-#define timer_CcxN_DISABLE                 0x00000000U
-
-void timer2Init(Timer_Handle_TypeDef *timer)
-{
-	timer->instance = timer2;
-}
-
-void ccxChannelConfigure(Timer_Handle_TypeDef *timer, uint32_t channel, uint32_t channelState)
-
-
-Status_TypeDef Timer_Base_Start(Timer_Handle_TypeDef *timer)
-{
-	timer->state = TIM_STATE_BUSY;
-	timer->instance->Cr1 |= 0x0001;
-	timer->state = TIM_STATE_READY;
-
-	return Ok;
-}
-
-Status_TypeDef Timer_OC_Start(Timer_Handle_TypeDef *timer, uint32_t channel)
-{
-
-
-}
 
 /* USER CODE END 0 */
 
@@ -198,15 +97,28 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM2_Init();
+  //MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  timer2Init(&tim2);
-  Timer_Base_Start(&tim2);
+  //timer2Init(&tim2);
+  //Timer_Base_Start(&tim2);
+
+  Reset_Timer2();
+  Unreset_Timer2();
+  Enable_Timer2_CLK_GATING();
+
+  timer2->Arr = 65536 /4 ;
+  timer2->Prescaler = 2747;
+  timer2->Counter = 0;
+
+  timerInItOutputCompare(timer2,3,OC_ACTIV_ON_MATCH,OC_NORMAL_POLARITY,65536/4/3);
+  timer_COUNTER_ENABLE(timer2);
+  timer_CAPTURE_COMPARE_ENABLE(timer2,3);
+
   //HAL_GPIO_WritePin(Led13_GPIO_Port,Led13_Pin,0);
   //HAL_GPIO_WritePin(Led14_GPIO_Port,Led14_Pin,0);
 
@@ -222,18 +134,18 @@ int main(void)
   //__HAL_TIM_CLEAR_FLAG(&htim2,TIM_IT_CC3);
 
   while (1)
-  {/*
-	  if(__HAL_TIM_GET_FLAG(&htim2,TIM_FLAG_UPDATE))
+  {
+	  if(timer_GET_FLAG(timer2,timer_UIF))
 	  {
-		  __HAL_TIM_CLEAR_FLAG(&htim2,TIM_IT_UPDATE);
+		  timer_CLEAR_FLAG(timer2,timer_UIF);
 		  HAL_GPIO_TogglePin(Led14_GPIO_Port,Led14_Pin);
 	  }
 
-	  if(__HAL_TIM_GET_FLAG(&htim2,TIM_FLAG_CC3))
+	  if(timer_GET_FLAG(timer2,timer_CC3IF))
 	  {
-		  __HAL_TIM_CLEAR_FLAG(&htim2,TIM_IT_CC3);
+		  timer_CLEAR_FLAG(timer2,timer_CC3IF);
 		  HAL_GPIO_TogglePin(Led13_GPIO_Port,Led13_Pin);
-	  }*/
+	  }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */

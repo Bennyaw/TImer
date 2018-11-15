@@ -1,0 +1,27 @@
+#include "Timer.h"
+#include "Common.h"
+
+
+void timer2Init(Timer_Handle_TypeDef *timer)
+{
+	timer->instance = timer2;
+}
+
+//void ccxChannelConfigure(Timer_Handle_TypeDef *timer, uint32_t channel, uint32_t channelState)
+
+
+Status_TypeDef Timer_Base_Start(Timer_Handle_TypeDef *timer)
+{
+	timer->state = TIM_STATE_BUSY;
+	timer->instance->Cr1 |= 0x0001;
+	timer->state = TIM_STATE_READY;
+
+	return Ok;
+}
+/*
+Status_TypeDef Timer_OC_Start(Timer_Handle_TypeDef *timer, uint32_t channel)
+{
+
+
+}
+*/

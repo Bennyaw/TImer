@@ -25,7 +25,10 @@ Src/main.o: ../Src/main.c C:/Students/Bennyaw/Timer/Timer2/Inc/main.h \
  C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
- C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+ C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
+ C:/Students/Bennyaw/Timer/Timer2/Inc/Timer.h \
+ C:/Students/Bennyaw/Timer/Timer2/Inc/Common.h \
+ C:/Students/Bennyaw/Timer/Timer2/Inc/RCC.h
 
 C:/Students/Bennyaw/Timer/Timer2/Inc/main.h:
 
@@ -82,3 +85,9 @@ C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_
 C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 
 C:/Students/Bennyaw/Timer/Timer2/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
+
+C:/Students/Bennyaw/Timer/Timer2/Inc/Timer.h:
+
+C:/Students/Bennyaw/Timer/Timer2/Inc/Common.h:
+
+C:/Students/Bennyaw/Timer/Timer2/Inc/RCC.h:
